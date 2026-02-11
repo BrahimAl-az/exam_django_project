@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: culinary-canvas
+    env: python
+    buildCommand: "bash build.sh"
+    startCommand: "gunicorn exam_project.wsgi:application"
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"

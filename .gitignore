@@ -10,6 +10,3 @@ static/
 .DS_Store
 .agent/
 .gemini/
-build.sh
-*.sh
-render.yaml
