@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Share Your Taste | Culinary Canvas{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Share Your <br> Culinary Journey</h1>
+    <p>Every flavor tells a story. We invite you to share your thoughts, your favorite recipes, or simply say hello to
+        our community of food enthusiasts.</p>
+    <a href="#feedback-form" class="btn-primary">Get in Touch</a>
+</section>
+
+<div id="feedback-form" class="glass-card form-wrapper">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 2rem; text-align: center;">Send a
+        Message</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div style="color: var(--secondary); font-size: 0.85rem; margin-top: 0.5rem; font-weight: 500;">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit">Submit Feedback</button>
+    </form>
+</div>
+
+{% if feedbacks %}
+<div class="page-header" style="margin-top: 8rem; margin-bottom: 4rem;">
+    <h2 style="font-size: 3rem; font-weight: 900;">Community <span style="color: var(--primary);">Voice</span></h2>
+    <p>Words from fellow culinary explorers around the globe.</p>
+</div>
+
+<div class="feedback-grid">
+    {% for feedback in feedbacks %}
+    <div class="glass-card feedback-card">
+        <div class="author-info">
+            <div class="avatar">{{ feedback.name|slice:":1"|upper }}</div>
+            <div>
+                <div class="author-name">{{ feedback.name }}</div>
+                <div class="date-posted">{{ feedback.created_at|date:"M d, Y" }}</div>
+            </div>
+        </div>
+        <div class="quote">
+            {{ feedback.message }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

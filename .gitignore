@@ -1,0 +1,15 @@
+*.pyc
+*__pycache__*
+db.sqlite3
+.venv
+venv
+env
+.env
+staticfiles/
+static/
+.DS_Store
+.agent/
+.gemini/
+build.sh
+*.sh
+render.yaml

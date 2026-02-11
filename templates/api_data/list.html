@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Explore The Menu | Culinary Canvas{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Discover <br> Global Flavors</h1>
+    <p>Embark on a culinary adventure through our curated selection of world-class chicken recipes. From traditional
+        comforts to exotic delights.</p>
+</section>
+
+<div class="meals-container">
+    {% if meals %}
+    {% for meal in meals %}
+    <div class="glass-card meal-item">
+        <div class="meal-thumb">
+            <span class="category-badge">{{ meal.strCategory }}</span>
+            <img src="{{ meal.strMealThumb }}" alt="{{ meal.strMeal }}" loading="lazy">
+        </div>
+        <div class="meal-body">
+            <h3>{{ meal.strMeal }}</h3>
+
+            <div class="meal-footer">
+                <div class="tag-list">
+                    <span class="tag-pill">{{ meal.strArea }}</span>
+                    {% if meal.strTags_list %}
+                    {% for tag in meal.strTags_list|slice:":2" %}
+                    <span class="tag-pill">#{{ tag }}</span>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if meal.strSource %}
+                <a href="{{ meal.strSource }}" target="_blank"
+                    style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: var(--transition);"
+                    onmouseover="this.style.color='var(--text-main)'" onmouseout="this.style.color='var(--primary)'">
+                    Recipe &rarr;
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 5rem;">
+        <h3 style="color: var(--text-muted);">No meals found in the pantry.</h3>
+        <p>Please check back later or try a different search.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
